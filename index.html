@@ -1134,7 +1134,10 @@
 /* ─── consent + notes (added) ─── */
 .cta-pref-label { text-align: center; margin: 0 0 14px; }
 .cta-note { font-family: 'Outfit', sans-serif; font-size: 14px; line-height: 1.6; letter-spacing: normal; text-transform: none; color: var(--muted, #9aa3b2); margin: 12px 0 28px; }
-.cta-consent { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; background: rgba(255,255,255,0.02); margin-top: 4px; }
+.cta-consent { display: flex; flex-direction: column; gap: 14px; padding: 18px 20px; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; background: rgba(255,255,255,0.02); margin-top: 4px; }
+.cta-consent-row { display: flex; align-items: flex-start; gap: 14px; }
+.cta-consent-legal { font-family: 'Outfit', sans-serif; font-size: 13px; line-height: 1.6; color: var(--muted, #9aa3b2); margin: 2px 0 0; }
+.cta-consent-legal a { color: var(--gold2, #d4af5a); text-decoration: underline; }
 .cta-consent-box { flex: 0 0 auto; width: 22px; height: 22px; margin-top: 2px; accent-color: var(--gold2, #d4af5a); cursor: pointer; }
 .cta-consent-label { font-size: 14px; line-height: 1.6; color: var(--muted, #b8c0cc); cursor: pointer; }
 .cta-consent-label a { color: var(--gold2, #d4af5a); text-decoration: underline; }
@@ -1513,8 +1516,15 @@
       </div>
       <textarea name="message" class="cta-textarea" placeholder="What's the #1 task eating up your time right now?"></textarea>
       <div class="cta-consent">
-        <input type="checkbox" id="consentCheckbox" name="consent" class="cta-consent-box" required>
-        <label for="consentCheckbox" class="cta-consent-label">I agree to receive texts and emails from Methodly regarding my inquiry, scheduling, services, and follow-up. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Email unsubscribe available anytime. Consent is not a condition of purchase. View our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</label>
+        <div class="cta-consent-row">
+          <input type="checkbox" id="smsConsent" name="sms_consent" class="cta-consent-box" required>
+          <label for="smsConsent" class="cta-consent-label">I agree to receive text messages from Methodly regarding my inquiry, scheduling, services, and follow-up. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase.</label>
+        </div>
+        <div class="cta-consent-row">
+          <input type="checkbox" id="emailConsent" name="email_consent" class="cta-consent-box">
+          <label for="emailConsent" class="cta-consent-label">I agree to receive emails from Methodly regarding my inquiry, scheduling, services, and follow-up. Email unsubscribe available anytime.</label>
+        </div>
+        <p class="cta-consent-legal">View our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p>
       </div>
       <button type="submit" class="cta-submit" id="submitBtn">Book My Free Evaluation →</button>
       <div id="formStatus"></div>
@@ -1590,7 +1600,7 @@
   // Set window.ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/...' to enable webhook posting.
   window.submitLead = function(event) {
     event.preventDefault();
-      if (!document.getElementById('consentCheckbox').checked) {
+      if (!document.getElementById('smsConsent').checked) {
         var st = document.getElementById('formStatus');
         if (st) { st.innerHTML = '<div class="cta-error">Please agree to the consent terms to continue.</div>'; }
         return false;
@@ -1599,8 +1609,10 @@
     const btn = document.getElementById('submitBtn');
     const status = document.getElementById('formStatus');
     const data = {
-        consent: document.getElementById('consentCheckbox').checked,
-        consent_language: 'I agree to receive texts and emails from Methodly regarding my inquiry, scheduling, services, and follow-up. Msg & data rates may apply. Reply STOP to opt out or HELP for help. Email unsubscribe available anytime. Consent is not a condition of purchase.',
+        sms_consent: document.getElementById('smsConsent').checked,
+        email_consent: document.getElementById('emailConsent').checked,
+        sms_consent_language: 'I agree to receive text messages from Methodly regarding my inquiry, scheduling, services, and follow-up. Msg & data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase.',
+        email_consent_language: 'I agree to receive emails from Methodly regarding my inquiry, scheduling, services, and follow-up. Email unsubscribe available anytime.',
         page_url: window.location.href,
         user_agent: navigator.userAgent,
       name: form.name.value.trim(),
