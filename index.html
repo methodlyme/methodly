@@ -782,7 +782,7 @@
 
   /* ─── CTA / CONTACT ─── */
   .cta-section {
-    padding: 140px 0;
+    padding: 120px 0;
     background: var(--navy);
     text-align: center;
     position: relative;
@@ -1132,13 +1132,15 @@
   }
 
 /* ─── consent + notes (added) ─── */
-.cta-pref-label { text-align: center; margin-top: 4px; }
-.cta-note { font-family: 'Outfit', sans-serif; font-size: 14px; line-height: 1.6; letter-spacing: normal; text-transform: none; color: var(--muted, #9aa3b2); margin: 10px 0 22px; }
+.cta-pref-label { text-align: center; margin: 0 0 14px; }
+.cta-note { font-family: 'Outfit', sans-serif; font-size: 14px; line-height: 1.6; letter-spacing: normal; text-transform: none; color: var(--muted, #9aa3b2); margin: 12px 0 28px; }
 .cta-consent { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; background: rgba(255,255,255,0.02); margin-top: 4px; }
 .cta-consent-box { flex: 0 0 auto; width: 22px; height: 22px; margin-top: 2px; accent-color: var(--gold2, #d4af5a); cursor: pointer; }
 .cta-consent-label { font-size: 14px; line-height: 1.6; color: var(--muted, #b8c0cc); cursor: pointer; }
 .cta-consent-label a { color: var(--gold2, #d4af5a); text-decoration: underline; }
 .cta-consent-label a:hover { opacity: 0.85; }
+
+.cta-radio-group { margin-bottom: 28px; }
 </style>
 </head>
 <body>
@@ -1489,7 +1491,7 @@
       <input type="text" name="company" class="cta-input" placeholder="Company name">
       <div class="cta-row">
         <input type="email" name="email" class="cta-input" placeholder="Email address *" required>
-        <input type="tel" name="phone" class="cta-input" placeholder="Phone number">
+        <input type="tel" name="phone" class="cta-input" placeholder="Phone number *" required>
       </div>
       <p class="cta-note">We will use your phone number for scheduling confirmations and inquiry follow-up only. We will only send text messages if you explicitly consent below.</p>
       <div>
