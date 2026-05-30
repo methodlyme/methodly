@@ -15,10 +15,10 @@ exports.handler = async (event) => {
   const from = params.From || '';
   const body = (params.Body || '').trim().toUpperCase();
 
-  const HUBSPOT_TOKEN = process.env.HUBSPOT_TOKEN;
+  const HUBSPOT_PRIVATE_APP_TOKEN = process.env.HUBSPOT_PRIVATE_APP_TOKEN;
   const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
   const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
-  const TWILIO_FROM_NUMBER = process.env.TWILIO_FROM_NUMBER;
+  const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
 
   // ═══════════════════════════════════════
   //  COMPLIANCE: STOP HANDLING (TCPA Req.)
@@ -35,7 +35,7 @@ exports.handler = async (event) => {
       const searchRes = await fetch('https://api.hubapi.com/crm/v3/objects/contacts/search', {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer ' + HUBSPOT_TOKEN,
+          Authorization: 'Bearer ' + HUBSPOT_PRIVATE_APP_TOKEN,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -58,7 +58,7 @@ exports.handler = async (event) => {
         await fetch('https://api.hubapi.com/crm/v3/objects/contacts/' + contactId, {
           method: 'PATCH',
           headers: {
-            Authorization: 'Bearer ' + HUBSPOT_TOKEN,
+            Authorization: 'Bearer ' + HUBSPOT_PRIVATE_APP_TOKEN,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -97,7 +97,7 @@ exports.handler = async (event) => {
   if (isHelp) {
     console.log('[COMPLIANCE] HELP received from:', from);
 
-    const helpMessage = 'Methodly: You can reach us at automate@methodly.me. Reply STOP to opt out. Msg/data rates may apply.';
+    const helpMessage = 'Methodly: You can reach us at results@methodly.me. Reply STOP to opt out. Msg/data rates may apply.';
 
     return {
       statusCode: 200,
@@ -117,7 +117,7 @@ exports.handler = async (event) => {
     const searchRes = await fetch('https://api.hubapi.com/crm/v3/objects/contacts/search', {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + HUBSPOT_TOKEN,
+        Authorization: 'Bearer ' + HUBSPOT_PRIVATE_APP_TOKEN,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -151,7 +151,7 @@ exports.handler = async (event) => {
       await fetch('https://api.hubapi.com/crm/v3/objects/notes', {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer ' + HUBSPOT_TOKEN,
+          Authorization: 'Bearer ' + HUBSPOT_PRIVATE_APP_TOKEN,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -170,7 +170,7 @@ exports.handler = async (event) => {
       await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer ' + HUBSPOT_TOKEN,
+          Authorization: 'Bearer ' + HUBSPOT_PRIVATE_APP_TOKEN,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
