@@ -15,12 +15,7 @@
   // This shows up in Clarity & analytics so you can tell which version a visitor saw.
   window.SITE_VERSION = 'dark';
 
-  // ── Zapier webhook for lead form ──
-  // 1. In Zapier, create a Zap with "Webhooks by Zapier" → "Catch Hook" as the trigger.
-  // 2. Copy the webhook URL Zapier gives you.
-  // 3. Paste it below, replacing the empty string.
-  window.ZAPIER_WEBHOOK_URL = '';
-</script>
+  </script>
 
 <!-- ── Microsoft Clarity ──
      1. Sign up at https://clarity.microsoft.com (free, no traffic limits)
@@ -1629,11 +1624,11 @@
     btn.textContent = 'Sending...';
     status.innerHTML = '';
 
-    const webhookUrl = window.ZAPIER_WEBHOOK_URL;
+    const endpoint = '/.netlify/functions/contact';
 
-    if (webhookUrl) {
-      // Send to Zapier
-      fetch(webhookUrl, {
+    if (endpoint) {
+      // Send to the Netlify contact function (HubSpot + Resend + Twilio)
+      fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -1650,22 +1645,6 @@
         btn.disabled = false;
         btn.textContent = 'Book My Free Evaluation →';
       });
-    } else {
-      // Fallback: open mail client with pre-filled email
-      const subject = encodeURIComponent('Free Evaluation Request: Methodly');
-      const body = encodeURIComponent(
-        `Hi Angela,\n\nI'd like to book a free evaluation for my business.\n\n` +
-        `Name: ${data.name}\n` +
-        `Email: ${data.email}\n` +
-        `Phone: ${data.phone}\n` +
-        `Preferred contact: ${data.contact_pref}\n\n` +
-        `About my business / biggest time drain:\n${data.message || '(not specified)'}\n\n` +
-        `Looking forward to chatting!\n`
-      );
-      window.location.href = `mailto:results@methodly.me?subject=${subject}&body=${body}`;
-      status.innerHTML = `<div class="cta-success">✓ Opening your email app...</div>`;
-      btn.textContent = 'Opening email ✓';
-      setTimeout(() => { btn.disabled = false; btn.textContent = 'Book My Free Evaluation →'; }, 4000);
     }
     return false;
   };
