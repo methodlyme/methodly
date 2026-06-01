@@ -1,6 +1,6 @@
 // netlify/functions/contact.js
 // Methodly website contact form handler. Single source of truth for all
-// website form submissions. No Zapier. All secrets stay server-side in
+// website form submissions. No external middleware. All secrets stay server-side in
 // Netlify environment variables. The site always receives a success
 // response even if a downstream service (HubSpot/Twilio/Resend) fails.
 
