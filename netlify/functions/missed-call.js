@@ -1,7 +1,7 @@
 // Methodly Missed-Call Webhook - Netlify Function
 // Endpoint: /.netlify/functions/missed-call
 // Flow: Twilio voice status callback -> validate signature -> HubSpot upsert -> Twilio SMS -> Resend email -> HubSpot note
-// No Zapier. Automation lives entirely in this serverless function.
+// No external middleware. Automation lives entirely in this serverless function.
 const crypto = require('crypto');
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
