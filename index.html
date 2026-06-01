@@ -1589,9 +1589,6 @@
   document.querySelectorAll('.problem-item').forEach(el=>obs.observe(el));
 
   // ── Form submission ──
-  // Posts the form data to a Zapier webhook (replace ZAPIER_WEBHOOK_URL with your actual webhook),
-  // OR falls back to opening the user's email client if no webhook is configured.
-  // Set window.ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/...' to enable webhook posting.
   window.submitLead = function(event) {
     event.preventDefault();
       if (!document.getElementById('smsConsent').checked && !document.getElementById('emailConsent').checked) {
