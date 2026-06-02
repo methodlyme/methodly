@@ -81,15 +81,16 @@ async function createDeal(contactId, input) {
   const dealName = 'Website Lead - ' + (input.name || input.email || input.phone || 'Unknown');
   const res = await fetch(HUBSPOT_BASE + '/crm/v3/objects/deals', { method: 'POST', headers: hubspotHeaders(), body: JSON.stringify({ properties: { dealname: dealName, dealstage: 'appointmentscheduled', pipeline: 'default' }, associations: [{ to: { id: contactId }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 3 }] }] }) });
   if (!res.ok) throw new Error('deal ' + res.status);
-  return await res.json();
+      const data = await res.json();
+      return data.id;
 }
 
 async function createTask(contactId, input) {
-  const due = Date.now() + 60 * 60 * 1000;
+    const due = Date.now() + 24 * 60 * 60 * 1000;
   const subject = 'Follow up with ' + (input.name || input.email || input.phone || 'new lead');
   const res = await fetch(HUBSPOT_BASE + '/crm/v3/objects/tasks', { method: 'POST', headers: hubspotHeaders(), body: JSON.stringify({ properties: { hs_task_subject: subject, hs_task_body: input.message || 'New website contact form submission.', hs_task_status: 'NOT_STARTED', hs_task_priority: 'HIGH', hs_timestamp: due }, associations: [{ to: { id: contactId }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 204 }] }] }) });
-  if (!res.ok) throw new Error('task ' + res.status);
-  return await res.json();
+      const data = await res.json();
+      return data.id;
 }
 
 function escapeHtml(s) {
